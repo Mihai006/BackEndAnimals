@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Documentation</title>
+    <link rel="stylesheet" href="documentation.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Server Documentation</h1>
+        <p>This document explains how to set up and use the server for managing users and animal data, including
+            registration, login, and fetching animal information.</p>
+
+        <h2>1. Installation</h2>
+        <p>To set up the server, you need to have Node.js installed. Then follow these steps:</p>
+        <pre><code>npm init</code></pre>
+        <p>This command installs the necessary dependencies listed in <code>package.json</code>.</p>
+
+        <h2>2. Starting the Server</h2>
+        <p>To start the server, run the following command:</p>
+        <pre><code>node index.js</code></pre>
+        <p>But make sure you are in the right
+            directory! The command<code>cd server</code> can be used to navigate to server directory</p>
+        <p>The server will start and listen on <code>http://localhost:3000</code>.</p>
+
+        <h2>3. API Endpoints</h2>
+
+        <h3>3.1 Register</h3>
+        <p>Endpoint: <code>POST /api/register</code></p>
+        <p>This endpoint registers a new user. You need to send the following data in the request body:</p>
+        <pre><code>{
+    "email": "user@example.com",
+    "username": "username",
+    "password": "password"
+}</code></pre>
+        <p>Response:</p>
+        <pre><code>{
+    "status": "ok"
+}</code></pre>
+
+        <h3>3.2 Login</h3>
+        <p>Endpoint: <code>POST /api/login</code></p>
+        <p>This endpoint logs in a user and returns a JWT token. You need to send the following data in the request
+            body:</p>
+        <pre><code>{
+    "email": "user@example.com",
+    "password": "password"
+}</code></pre>
+        <p>Response:</p>
+        <pre><code>{
+    "status": "ok",
+    "token": "your-jwt-token"
+}</code></pre>
+
+        <h3>3.3 Fetch Animal Data</h3>
+        <p>Endpoint: <code>GET /api/animal/:animal</code></p>
+        <p>This endpoint fetches data about a specific animal (dog, cat, or fish). You must include a JWT token in the
+            request header. Example:</p>
+        <pre><code>GET /api/animal/cat?random=1</code></pre>
+        <p>Response:</p>
+        <pre><code>{
+    "status": "success",
+    "data": {
+        "animal": "cat",
+        "breed": "Siamese",
+        "exampleImage": "/images/cats/siamese/image1.png",
+        "source": "own"
+    }
+}</code></pre>
+
+        <h3>3.4 Add New Animal</h3>
+        <p>Endpoint: <code>POST /api/animal</code></p>
+        <p>This endpoint allows you to add a new animal to the database. You must include a JWT token in the request
+            header. The form data should include the animal type, breed, and image file:</p>
+        <pre><code>{
+    "animalType": "cat",
+    "breed": "Persian",
+    "image": "file.png"
+}</code></pre>
+        <p>Response:</p>
+        <pre><code>{
+    "status": "success",
+    "message": "Animal added successfully!"
+}</code></pre>
+
+        <h2>4. Authentication Middleware</h2>
+        <p>The server uses JWT for authentication. The <code>authenticateJWT</code> middleware checks for a valid JWT
+            token in the Authorization header of each request. If the token is missing or invalid, the server responds
+            with a <code>403 Forbidden</code> status.</p>
+
+        <h2>5. Handling Images</h2>
+        <p>The server uses <code>multer</code> to handle image uploads. Images are stored in the
+            <code>public/images/animals</code> directory, and the file names are generated using timestamps to avoid
+            conflicts.
+        </p>
+
+        <h2>6. Error Handling</h2>
+        <p>All API endpoints include basic error handling. If something goes wrong, the server responds with a
+            <code>500 Internal Server Error</code> status and an error message.
+        </p>
+
+        <h2>7. Database Configuration</h2>
+        <p>The server connects to a MySQL database using the following configuration:</p>
+        <pre><code>{
+    "host": "localhost",
+    "user": "root",
+    "database": "Animals",
+    "password": "your-password"
+}</code></pre>
+        <p>Ensure that you have a MySQL server running with a database named <code>Animals</code> and a table for users.
+        </p>
+
+    </div>
+</body>
+
+</html>

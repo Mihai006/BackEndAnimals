@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentație Server</title>
+</head>
+
+<body>
+    <h1>Documentație Server</h1>
+
+    <h2>Register</h2>
+    <form id="register-form">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
+    <div id="register-message"></div>
+
+    <h2>Login</h2>
+    <form id="login-form">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <div id="login-message"></div>
+
+    <h2>Fetch Animal Data</h2>
+    <select id="animal-type-selector">
+        <option value="dog">Dog</option>
+        <option value="cat">Cat</option>
+        <option value="fish">Fish</option>
+    </select>
+    <button id="fetch-data">Fetch Data</button>
+    <div id="data-display"></div>
+
+
+    <h2>Add New Entry</h2>
+    <form id="add-entry-form" action="/api/animal" method="POST" enctype="multipart/form-data">
+        <input type="text" name="animalType" placeholder="Animal (cat or fish)" required>
+        <input type="text" name="breed" placeholder="Breed" required>
+        <input type="file" name="image" accept="image/*" required />
+        <button type="submit">Add Entry</button>
+    </form>
+    <script src="/script.js" defer></script>
+
+</body>
+
+</html>
